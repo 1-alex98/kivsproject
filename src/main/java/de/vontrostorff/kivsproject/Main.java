@@ -22,7 +22,7 @@ public class Main {
         BufferedReader readerForFile = FileDownloader.getReaderForFile(url);
         FileParser fileParser = new FileParser(readerForFile);
         PingFile pingFile = fileParser.parse();
-        LOGGER.info("A file with "+pingFile.getPingGroups().size()+" ping groups was parsed");
+        LOGGER.info("A file with " + pingFile.getPingGroups().size() + " ping groups were parsed");
 
         OptionalDouble average = pingFile.getPingGroups().stream().mapToDouble(PingGroup::getAverage).average();
         double asDouble = average.getAsDouble();
