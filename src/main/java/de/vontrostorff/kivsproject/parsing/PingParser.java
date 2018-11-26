@@ -17,7 +17,7 @@ public class PingParser {
     public Ping parse() {
         Ping ping= new Ping();
         Matcher matcher = PING_PATTERN.matcher(toParse);
-        if(!matcher.matches()){
+        if(!matcher.find()){
             throw new IllegalStateException("The ping was in invalid format");
         }
         String bytes = matcher.group("bytes");
