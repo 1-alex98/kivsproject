@@ -3,6 +3,7 @@ package de.vontrostorff.kivsproject.plotting;
 import de.vontrostorff.kivsproject.Main;
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
 import de.vontrostorff.kivsproject.plotting.plotters.XYAverageLinePlotter;
+import de.vontrostorff.kivsproject.plotting.plotters.XYScatterOverTimePlotter;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 
@@ -27,11 +28,13 @@ public class MainPlotter {
     public void plotAll() {
         List<JFreeChart> plots = new ArrayList<>();
         plots.add(new XYAverageLinePlotter(pingFile).plot());
+        plots.add(new XYScatterOverTimePlotter(pingFile).plot());
+
 
         plots.forEach(jFreeChart -> {
             int width = 1920;   /* Width of the image */
             int height = 1080;  /* Height of the image */
-            Path jpgPath = outputDir.resolve(jFreeChart.getTitle() + "_" + jFreeChart.getID() + ".jpg");
+            Path jpgPath = outputDir.resolve(jFreeChart.getTitle().getText() + "_" + jFreeChart.getID() + ".jpg");
             File jpgFile = jpgPath.toFile();
             try {
                 jpgFile.createNewFile();
