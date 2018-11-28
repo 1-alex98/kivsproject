@@ -4,7 +4,6 @@ import de.vontrostorff.kivsproject.parsing.dtos.Ping;
 import de.vontrostorff.kivsproject.parsing.dtos.PingGroup;
 
 import java.io.BufferedReader;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +19,7 @@ public class PingGroupParser {
     private static final Logger LOGGER = Logger.getLogger(PingGroupParser.class.getName());
     private static final String SEPERATOR_IPV4="round-trip min";
     private static final String SEPERATOR_IPV6="rtt min";
-    private static final Pattern PING_GROUP_PATTER= Pattern.compile("(?<unixtime>[\\d]{1,20})\\nPING www.google.de[^\\n]+\\n(?<ping>[\\d]{2,3} bytes from[^\\n]*\\n)*\\n[^\\n]+\\n(?<transmitted>\\d{1,3}) packets transmitted, (?<received>\\d{1,3})[^\\n]*\\n[^=]*[=] (?<min>[\\d]{1,4}[.][\\d]{1,4})\\/(?<average>[\\d]{1,4}[.][\\d]{1,4})\\/(?<max>[\\d]{1,5}[.][\\d]{1,5})[^\\n]*\\n");
+    private static final Pattern PING_GROUP_PATTER = Pattern.compile("(?<unixtime>[\\d]{1,20})\\nPING www.google.de[^\\n]+\\n(?<ping>([\\d]{2,3} bytes from[^\\n]*\\n)*)\\n[^\\n]+\\n(?<transmitted>\\d{1,3}) packets transmitted, (?<received>\\d{1,3})[^\\n]*\\n[^=]*[=] (?<min>[\\d]{1,4}[.][\\d]{1,4})\\/(?<average>[\\d]{1,4}[.][\\d]{1,4})\\/(?<max>[\\d]{1,5}[.][\\d]{1,5})[^\\n]*\\n");
 
 
     private final BufferedReader bufferedReader;
@@ -84,7 +83,7 @@ public class PingGroupParser {
         float maxInt= Float.parseFloat(max);
         pingGroup.setAverage(maxInt);
         String ping = matcher.group("ping");
-        String[] split = ping.split(System.getProperty("line.separator"));
+        String[] split = ping.split("\\n");
         List<Ping> pings = Arrays.stream(split).map(s -> {
             try{
                 return new PingParser(s).parse();

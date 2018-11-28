@@ -7,30 +7,31 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class XYScatterOverTimePlotter implements Plotter {
+public class XYScatterOverSequenceNumberPlotter implements Plotter {
     private final PingFile pingFile;
 
-    public XYScatterOverTimePlotter(PingFile pingFile) {
+    public XYScatterOverSequenceNumberPlotter(PingFile pingFile) {
         this.pingFile = pingFile;
     }
 
     @Override
     public JFreeChart plot() {
-        XYSeries rttSeries = new XYSeries("RTT");
+        XYSeries rttSeries = new XYSeries("RTT over sequence number");
         pingFile.getPingGroups()
-                .forEach(pingGroup -> pingGroup.getPings().forEach(ping -> rttSeries.add(pingGroup.getStart().getTime(), ping.getRoundTripTime())));
+                .forEach(pingGroup -> pingGroup.getPings().forEach(ping -> rttSeries.add(ping.getSequence(), (Number) ping.getRoundTripTime())));
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(rttSeries);
 
-        JFreeChart xylineChart = JFreeChartUtil.getScatterOverTime(
-                "rtt for every ping over time",
-                "Time",
+        JFreeChart xylineChart = JFreeChartUtil.getScatterOverInteger(
+                "rtt for sequence number",
+                "Sequence number",
                 "RTT in seconds",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
-        xylineChart.setID("2");
+        xylineChart.setID("3");
+        xylineChart.getXYPlot().getDomainAxis().setRange(1.0, 10.0);
         return xylineChart;
     }
 }
