@@ -1,4 +1,4 @@
 # kivsproject
 
-1. Use Intzelij 2018.2.7
+1. Use Intelij 2018.2.7
 2. Install lombok plugin
