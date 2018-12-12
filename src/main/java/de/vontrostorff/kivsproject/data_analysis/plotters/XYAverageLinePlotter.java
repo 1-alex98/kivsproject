@@ -1,17 +1,17 @@
-package de.vontrostorff.kivsproject.plotting.plotters;
+package de.vontrostorff.kivsproject.data_analysis.plotters;
 
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
-import de.vontrostorff.kivsproject.util.JFreeChartUtil;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.time.FixedMillisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
-public class XYScatterOverTimePlotter implements Plotter {
+public class XYAverageLinePlotter implements Plotter {
     private final PingFile pingFile;
 
-    public XYScatterOverTimePlotter(PingFile pingFile) {
+    public XYAverageLinePlotter(PingFile pingFile) {
         this.pingFile = pingFile;
     }
 
@@ -19,19 +19,19 @@ public class XYScatterOverTimePlotter implements Plotter {
     public JFreeChart plot() {
         TimeSeries rttSeries = new TimeSeries("RTT");
         pingFile.getPingGroups()
-                .forEach(pingGroup -> pingGroup.getPings().forEach(ping -> rttSeries.add(new FixedMillisecond(pingGroup.getStart()), ping.getRoundTripTime())));
+                .forEach(pingGroup -> rttSeries.add(new FixedMillisecond(pingGroup.getStart()), pingGroup.getAverage()));
 
         final TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(rttSeries);
 
-        JFreeChart xylineChart = JFreeChartUtil.getScatterOverTime(
-                "rtt for every ping over time",
+        JFreeChart xylineChart = ChartFactory.createXYStepChart(
+                "Average rtt over time",
                 "Time",
                 "RTT in seconds",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
-        xylineChart.setID("2");
+        xylineChart.setID("1");
         return xylineChart;
     }
 }
