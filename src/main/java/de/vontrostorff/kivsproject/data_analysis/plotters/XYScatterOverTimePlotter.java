@@ -4,9 +4,8 @@ import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
 import de.vontrostorff.kivsproject.util.JFreeChartUtil;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.time.FixedMillisecond;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class XYScatterOverTimePlotter implements Plotter {
     private final PingFile pingFile;
@@ -17,11 +16,11 @@ public class XYScatterOverTimePlotter implements Plotter {
 
     @Override
     public JFreeChart plot() {
-        TimeSeries rttSeries = new TimeSeries("RTT");
+        XYSeries rttSeries = new XYSeries("RTT");
         pingFile.getPingGroups()
-                .forEach(pingGroup -> pingGroup.getPings().forEach(ping -> rttSeries.add(new FixedMillisecond(pingGroup.getStart()), ping.getRoundTripTime())));
+                .forEach(pingGroup -> pingGroup.getPings().forEach(ping -> rttSeries.add(pingGroup.getStart().getTime(), ping.getRoundTripTime())));
 
-        final TimeSeriesCollection dataset = new TimeSeriesCollection();
+        final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(rttSeries);
 
         JFreeChart xylineChart = JFreeChartUtil.getScatterOverTime(
