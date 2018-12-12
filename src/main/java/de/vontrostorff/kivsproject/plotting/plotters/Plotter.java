@@ -1,4 +1,4 @@
-package de.vontrostorff.kivsproject.data_analysis.plotters;
+package de.vontrostorff.kivsproject.plotting.plotters;
 
 import org.jfree.chart.JFreeChart;
 

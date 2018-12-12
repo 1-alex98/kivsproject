@@ -1,10 +1,10 @@
-package de.vontrostorff.kivsproject.data_analysis;
+package de.vontrostorff.kivsproject.plotting;
 
 import de.vontrostorff.kivsproject.Main;
-import de.vontrostorff.kivsproject.data_analysis.plotters.XYAverageLinePlotter;
-import de.vontrostorff.kivsproject.data_analysis.plotters.XYScatterOverTimePlotter;
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
+import de.vontrostorff.kivsproject.plotting.plotters.XYAverageLinePlotter;
 import de.vontrostorff.kivsproject.plotting.plotters.XYScatterOverSequenceNumberPlotter;
+import de.vontrostorff.kivsproject.plotting.plotters.XYScatterOverTimePlotter;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 

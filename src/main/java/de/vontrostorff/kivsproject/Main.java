@@ -1,11 +1,11 @@
 package de.vontrostorff.kivsproject;
 
-import de.vontrostorff.kivsproject.data_analysis.MainPlotter;
 import de.vontrostorff.kivsproject.data_analysis.MainStatisticalWriter;
 import de.vontrostorff.kivsproject.download.FileDownloader;
 import de.vontrostorff.kivsproject.parsing.FileParser;
 import de.vontrostorff.kivsproject.parsing.dtos.Ping;
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
+import de.vontrostorff.kivsproject.plotting.MainPlotter;
 
 import java.io.BufferedReader;
 import java.io.IOException;

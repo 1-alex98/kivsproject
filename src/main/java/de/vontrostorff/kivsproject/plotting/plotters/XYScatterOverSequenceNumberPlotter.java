@@ -1,6 +1,5 @@
 package de.vontrostorff.kivsproject.plotting.plotters;
 
-import de.vontrostorff.kivsproject.data_analysis.plotters.Plotter;
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
 import de.vontrostorff.kivsproject.util.JFreeChartUtil;
 import org.jfree.chart.JFreeChart;
