@@ -1,4 +1,0 @@
-Segmentations:
-ipv4 -ipv6
-outliers
-Tageszeit
