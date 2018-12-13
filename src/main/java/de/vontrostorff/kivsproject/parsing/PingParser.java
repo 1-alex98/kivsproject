@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import static de.vontrostorff.kivsproject.util.Util.isNullOrEmpty;
 
 public class PingParser {
-    private static final Pattern PING_PATTERN= Pattern.compile("(?<bytes>\\d{1,3}) bytes from (?<source>[^:]*):[^=]*=(?<sequencenumber>[\\d]{1,2}).*time=(?<time>\\d{1,2}.\\d{0,5}).*");
+    private static final Pattern PING_PATTERN= Pattern.compile("(?<bytes>\\d{1,3}) bytes from (?<source>([^:]|[:][^ ])*):[^=]*=(?<sequencenumber>[\\d]{1,2}).*time=(?<time>\\d{1,2}.\\d{0,5}).*");
     private final String toParse;
     public PingParser(String toParse) {
         this.toParse = toParse;

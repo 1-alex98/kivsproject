@@ -5,6 +5,7 @@ import de.vontrostorff.kivsproject.download.FileDownloader;
 import de.vontrostorff.kivsproject.parsing.FileParser;
 import de.vontrostorff.kivsproject.parsing.dtos.Ping;
 import de.vontrostorff.kivsproject.parsing.dtos.PingFile;
+import de.vontrostorff.kivsproject.plotting.IPv46Plotter;
 import de.vontrostorff.kivsproject.plotting.MainPlotter;
 
 import java.io.BufferedReader;
@@ -35,8 +36,15 @@ public class Main {
         outputDir.toFile().mkdirs();
         MainPlotter mainPlotter = new MainPlotter(pingFile, outputDir);
         mainPlotter.plotAll();
+
         MainStatisticalWriter mainStatisticalWriter = new MainStatisticalWriter(pingFile, outputDir, flatPings);
         mainStatisticalWriter.writeFile();
+
+
+        Path ipv4_ipv6 = outputDir.resolve("ipv4_ipv6");
+        ipv4_ipv6.toFile().mkdirs();
+        IPv46Plotter iPv46Plotter=new IPv46Plotter(pingFile, ipv4_ipv6);
+        iPv46Plotter.plot();
 
     }
 }
